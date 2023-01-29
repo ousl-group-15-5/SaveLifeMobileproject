@@ -1,4 +1,6 @@
 import React from "react";
+import { useRoute } from "@react-navigation/native";
+import { useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,65 +11,81 @@ import {
   Button,
 } from "react-native";
 import MapView from "react-native-maps";
-import { Marker } from 'react-native-maps';  
+import { Marker } from "react-native-maps";
 import Communications from "react-native-communications";
 
-
 const ContactdonorScreen = () => {
+  const route = useRoute();
+
   const Phonenumber = "0701169644";
   const SmsText = "SMS for Blood donation request";
-  const numberOfDonor = 4;
-  const nameContanner = 'Donor Name here';
+  
+  const [NumberofDonor, setNumberofDonor] = useState("");
+  fun();
+
+  function fun() {
+    var dataobj = {};
+    dataobj.responcCtn = route.params.responce;
+    //const obt = JSON.parse(route.params.responce);
+    var data = route.params.responce.map(function (item) {
+      return {
+        key: item.D_contactNum1,
+        label: item.D_name,
+      };
+    });
+    setNumberofDonor(data);
+    //const numberOfDonor = Object.keys(data).length;
+    //setNumberofDonor(number);
+    // console.log(number)
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.firstContanner}>
         <View style={styles.firstDonorFindView}>
           <Text style={styles.textforAlert}>Alert</Text>
 
-          <Text style={styles.numberOfDonor}>{numberOfDonor} Donor Found </Text>
+          <Text style={styles.numberOfDonor}>{} Donor Found </Text>
         </View>
 
         {/* For view google map  */}
         <View style={styles.container}>
-          <MapView 
-                 style={styles.map}
-                 showsUserLocation={false}  
-          zoomEnabled={true}  
-          zoomControlEnabled={true}  
-          initialRegion={{  
-            latitude:6.9271,   
-            longitude: 79.8612,  
-            latitudeDelta:0.090,  
-            longitudeDelta: 0.090,  
-          }}>  
-  
-          <Marker  
-            coordinate={{ latitude: 6.9044, longitude:79.8540 }}  
-            title={"Bamplapitiya"}  
-            
-          />  
-           
-          <Marker  
-            coordinate={{ latitude: 6.9270, longitude: 79.8640 }}  
-            title={"Maradana"}  
-          />  
-            
-            <Marker  
-            coordinate={{ latitude: 6.9361, longitude: 79.8450 }}  
-            title={"Fort"}  
-          /> 
-             
-             <Marker  
-            coordinate={{ latitude: 6.8976, longitude: 79.8815 }}  
-            title={"Narahenpita"}  
-          /> 
+          <MapView
+            style={styles.map}
+            showsUserLocation={false}
+            zoomEnabled={true}
+            zoomControlEnabled={true}
+            initialRegion={{
+              latitude: 6.9271,
+              longitude: 79.8612,
+              latitudeDelta: 0.09,
+              longitudeDelta: 0.09,
+            }}
+          >
+            <Marker
+              coordinate={{ latitude: 6.9044, longitude: 79.854 }}
+              title={"Bamplapitiya"}
+            />
 
-        </MapView>
+            <Marker
+              coordinate={{ latitude: 6.927, longitude: 79.864 }}
+              title={"Maradana"}
+            />
+
+            <Marker
+              coordinate={{ latitude: 6.9361, longitude: 79.845 }}
+              title={"Fort"}
+            />
+
+            <Marker
+              coordinate={{ latitude: 6.8976, longitude: 79.8815 }}
+              title={"Narahenpita"}
+            />
+          </MapView>
         </View>
       </View>
       <View style={styles.callAndDonorContanner}>
         <View>
-          <Text>{nameContanner}</Text>
+          <Text>{}</Text>
         </View>
         {/* For make a phone call to donor contact number  */}
         <View style={styles.callFunctionContanner}>
@@ -80,11 +98,11 @@ const ContactdonorScreen = () => {
           </TouchableOpacity>
           {/* For make a phone call to donor contact number */}
           <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.buttonStyle}
-          onPress={() => Communications.text(Phonenumber, SmsText)}
+            activeOpacity={0.5}
+            style={styles.buttonStyle}
+            onPress={() => Communications.text(Phonenumber, SmsText)}
           >
-          <Text style={styles.buttonTextStyle}>Send a Text</Text>
+            <Text style={styles.buttonTextStyle}>Send a Text</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -129,29 +147,25 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-  callAndDonorContanner:{
-    flex:1,
-    flexDirection:"row",
+  callAndDonorContanner: {
+    flex: 1,
+    flexDirection: "row",
   },
-  callFunctionContanner:{
-    flexDirection:"row",
-    justifyContent:'space-between',
-    paddingLeft:5,
-    height:30,
-    margin:'5%',
-  
+  callFunctionContanner: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingLeft: 5,
+    height: 30,
+    margin: "5%",
   },
   buttonStyle: {
-    
     padding: 5,
     backgroundColor: "#FF1493",
-    
   },
   buttonTextStyle: {
     color: "#fff",
     textAlign: "center",
-    marginRight:'11%',
-  
+    marginRight: "11%",
   },
 });
 export default ContactdonorScreen;
