@@ -320,6 +320,7 @@ const subcatogary = {
         <TextInput
           style={styles.input}
           secureTextEntry={true}
+          keyboardType="numeric"
           selectionColor={"#5188E3"}
           onChangeText={(Password) => setPassword(Password)}
           onEndEditing={(e) => handleValidPassword(e.nativeEvent.text)}
@@ -332,6 +333,7 @@ const subcatogary = {
           style={styles.input}
           secureTextEntry={true}
           selectionColor={"#5188E3"}
+          keyboardType="numeric"
           onChangeText={(Confirmpassword) =>
             setConfirmpassword(Confirmpassword)
           }
