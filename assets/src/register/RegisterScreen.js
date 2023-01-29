@@ -290,7 +290,7 @@ const subcatogary = {
             <SelectList
               setSelected={setclusteropn}
               data={catogaries}
-              placeholder={"Slect cluster center"}
+              placeholder={"Select cluster center"}
               
             />
           </View>
@@ -302,7 +302,7 @@ const subcatogary = {
             <SelectList
                setSelected={setsubbranch}
                data={subcatogary[clusteropn]}
-               placeholder={"Slect cluster center"}
+               placeholder={"Select Blood Bank"}
             />
           </View>
         </View>
