@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { useState } from "react";
 import MapView from "react-native-maps";
-import { Marker } from 'react-native-maps';  
+import { Marker } from "react-native-maps";
 import {
   Button,
   View,
@@ -13,21 +13,14 @@ import {
   TextInput,
 } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
+import { useNavigation } from "@react-navigation/native";
 
 import { ScrollView } from "react-native-gesture-handler";
 
-
-
-
-
-
 const FinddonorScreen = ({ navigation }) => {
+  const [bloodValue, setBloodValue] = useState("");
 
-
-
-  const [bloodValue, setBloodValue] = useState('');
-
-  const bldgroupctgry=[
+  const bldgroupctgry = [
     { Key: "A+", value: "A+" },
     { Key: "A-", value: "A-" },
     { Key: "B+", value: "B+" },
@@ -38,7 +31,7 @@ const FinddonorScreen = ({ navigation }) => {
     { Key: "O-", value: "O-" },
   ];
 
-  const [locationValue, setLocationValue] = useState('');
+  const [locationValue, setLocationValue] = useState("");
   const locationctgry = [
     { Key: "Akkaraipattu", value: "Akkaraipattu" },
     { Key: "Ampara", value: "Ampara" },
@@ -61,16 +54,66 @@ const FinddonorScreen = ({ navigation }) => {
     { Key: "Ratnapura", value: "Ratnapura" },
     { Key: "Trincomalee", value: "Trincomalee" },
     { Key: "Vavuniya", value: "Vavuniya" },
-
   ];
+
+  //declare an array for save the databace responce
+  var responcearr = [];
+
+  const navigations = useNavigation();
+
+  const renext = () => {
+    navigations.navigate("Contact Donor", {
+      responce: responcearr,
+    });
+  };
+
+  const findDonor = () => {
+    if (bloodValue == "" ) {
+      alert("Please choose required blood group");
+    }else if(locationValue == ''){
+      alert("Please choose location");
+    } 
+    else {
+      var InsertApiURL = "http://10.0.2.2:80/api/FindDonorDetail.php";
+
+      var headers = {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      };
+
+      var dataobj = {};
+      (dataobj.BloodGropub = bloodValue), (dataobj.Location = locationValue);
+
+      fetch(InsertApiURL, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(dataobj),
+      })
+        //whether output api json or not
+        .then((responce) => responce.json())
+        .then((responceJSON) => {
+          if (responceJSON == "ok") {
+            alert("Maching blood group not found");
+          } else {
+            //databace responce include this array
+            responcearr = responceJSON;
+            //call the renext function for goto next page with result data
+            renext();
+          }
+        })
+        //hndle exception
+        .catch((error) => {
+          alert("Error 001" + error);
+        });
+    }
+  };
+
   return (
     <View style={styles.container2}>
       <View style={{ zIndex: 2 }}>
         <View style={styles.dropdownAge}>
           <Text style={styles.label}>Blood Group</Text>
           <SelectList
-            
-
             setSelected={setBloodValue}
             data={bldgroupctgry}
             placeholder={"Select Blood Group"}
@@ -82,57 +125,40 @@ const FinddonorScreen = ({ navigation }) => {
         <View style={styles.dropdownAge}>
           <Text style={styles.label}>Location</Text>
           <SelectList
-
             setSelected={setLocationValue}
             data={locationctgry}
             placeholder={"Select Location"}
-
-           
           />
         </View>
       </View>
-    
 
-      <Button
-        title="FIND DONOR"
-        onPress={() => navigation.navigate("Contact Donor")}
-      />
-  
-  <MapView  
-          style={styles.map}  
-          showsUserLocation={false}  
-          zoomEnabled={true}  
-          zoomControlEnabled={true}  
-          initialRegion={{  
-            latitude:7.8731,   
-            longitude: 80.7718,  
-            latitudeDelta:3.000,  
-            longitudeDelta: 3.000,  
-          }}>  
-  
-          <Marker  
-            coordinate={{ latitude: 6.8677, longitude:79.8766 }}  
-            title={"Colombo"}  
-            
-          />  
-        </MapView>  
-          
+      <Button title="FIND DONOR" onPress={findDonor} />
 
-  
-
-
-     </View>
+      <MapView
+        style={styles.map}
+        showsUserLocation={false}
+        zoomEnabled={true}
+        zoomControlEnabled={true}
+        initialRegion={{
+          latitude: 7.8731,
+          longitude: 80.7718,
+          latitudeDelta: 3.0,
+          longitudeDelta: 3.0,
+        }}
+      >
+        <Marker
+          coordinate={{ latitude: 6.8677, longitude: 79.8766 }}
+          title={"Colombo"}
+        />
+      </MapView>
+    </View>
   );
 };
 const styles = StyleSheet.create({
-
-
   container2: {
     flex: 1,
     backgroundColor: "#fff",
-    marginTop:'1%'
-   
-   
+    marginTop: "1%",
   },
 
   input: {
@@ -256,7 +282,6 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     borderColor: "#B7B7B7",
-    
   },
   placeholderStyles: {
     color: "black",
@@ -275,15 +300,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     alignItems: "center",
   },
-  secondcontanner:{
-    flex:2,
-    margin:'5%',
+  secondcontanner: {
+    flex: 2,
+    margin: "5%",
   },
-  map:{
-    width:'100%',
-    height:'70%',
-  }
- 
+  map: {
+    width: "100%",
+    height: "70%",
+  },
 });
 
 export default FinddonorScreen;

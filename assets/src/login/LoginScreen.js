@@ -53,6 +53,7 @@ function detailsEmpty(){
   loginUser=()=>{
     if(UserName.length == 0 || Password.length==0){
       alert('Required field is missing');
+      //navigation.navigate("Category");
     }else{
       var InsertApiURL = "http://10.0.2.2:80/api/login.php";
 
