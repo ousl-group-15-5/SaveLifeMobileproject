@@ -53,10 +53,11 @@ const BlooddetailScreen = ({navigation}) => {
   // Save details in db
   const DonorReg = () => {
     if (
-     false
+     ageValue == '' || weightValue == '' || bloodValue ==''||hemoglobinValue==''
     ) {
       alert("Required field is missing");
-    } else {  
+    } else { 
+      
       var InsertApiURL = "http://10.0.2.2:80/api/DonorRegister.php";
 
       //this contain header related component
@@ -65,8 +66,9 @@ const BlooddetailScreen = ({navigation}) => {
         'Content-Type':'application/json'
       };
       var dataobj = {};
+      
         (dataobj.Name = route.params.name),
-        (dataobj.Birth = route.params.birth),
+        (dataobj.Birth = route.params.selectdate),
         (dataobj.Address = route.params.address),
         (dataobj.Id = route.params.id),
         (dataobj.Number1 = route.params.number1),
@@ -77,7 +79,7 @@ const BlooddetailScreen = ({navigation}) => {
         (dataobj.BloodType = bloodValue),
         (dataobj.Hemoglobinlvl = hemoglobinValue);
         
-    
+      
       
       fetch(InsertApiURL, {
         method: "POST",
@@ -116,7 +118,7 @@ const BlooddetailScreen = ({navigation}) => {
         <View style={styles.dropdownAge}>
           <Text style={styles.label}>Weight</Text>
           <SelectList
-            setSelected={setBloodValue}
+            setSelected={setWeightValue}
             data={ageWeight}
             placeholder={"Select Weight"}
           />
@@ -128,7 +130,7 @@ const BlooddetailScreen = ({navigation}) => {
           <Text style={styles.label}>Blood Group</Text>
           <SelectList
        
-          setSelected={setWeightValue}
+          setSelected={setBloodValue}
           data={bldgroupctgry}
           placeholder={"Select Blood Group"}
             
