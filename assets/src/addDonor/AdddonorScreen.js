@@ -67,7 +67,7 @@ const AdddonorScreen = ({ navigation }) => {
   };
   const isValidSLMobileNumber = (number) => {
     return /^07[0-9]{8}$/.test(number);
-  }
+  };
   
 
   const showDatePicker = () => {

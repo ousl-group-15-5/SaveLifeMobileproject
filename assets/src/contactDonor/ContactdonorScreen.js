@@ -10,6 +10,7 @@ import {
   VirtualizedList,
   Button,
 } from "react-native";
+
 import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
 import Communications from "react-native-communications";
@@ -18,9 +19,12 @@ const ContactdonorScreen = () => {
   const route = useRoute();
 
   const Phonenumber = "0701169644";
+  const Phonenumber1 = "0712264659";
+  const Phonenumber2 = "0769939077";
+  
   const SmsText = "SMS for Blood donation request";
   
-  const [NumberofDonor, setNumberofDonor] = useState("");
+  
   fun();
 
   function fun() {
@@ -33,18 +37,19 @@ const ContactdonorScreen = () => {
         label: item.D_name,
       };
     });
-    setNumberofDonor(data);
+    
     //const numberOfDonor = Object.keys(data).length;
     //setNumberofDonor(number);
     // console.log(number)
   }
   return (
+    
     <SafeAreaView style={styles.container}>
       <View style={styles.firstContanner}>
         <View style={styles.firstDonorFindView}>
           <Text style={styles.textforAlert}>Alert</Text>
 
-          <Text style={styles.numberOfDonor}>{} Donor Found </Text>
+          <Text style={styles.numberOfDonor}>{} 3 Donor Found </Text>
         </View>
 
         {/* For view google map  */}
@@ -75,11 +80,7 @@ const ContactdonorScreen = () => {
               coordinate={{ latitude: 6.9361, longitude: 79.845 }}
               title={"Fort"}
             />
-
-            <Marker
-              coordinate={{ latitude: 6.8976, longitude: 79.8815 }}
-              title={"Narahenpita"}
-            />
+image.png
           </MapView>
         </View>
       </View>
@@ -88,25 +89,42 @@ const ContactdonorScreen = () => {
           <Text>{}</Text>
         </View>
         {/* For make a phone call to donor contact number  */}
+        <View style={styles.Donornames}>
         <View style={styles.callFunctionContanner}>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={styles.buttonStyle}
-            onPress={() => Communications.phonecall(Phonenumber, true)}
+        <Text style={styles.name}>Niroshan</Text>
+         <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.buttonStyle}
+          onPress={() => Communications.text(Phonenumber, SmsText)}
           >
-            <Text style={styles.buttonTextStyle}>Voice call</Text>
-          </TouchableOpacity>
-          {/* For make a phone call to donor contact number */}
-          <TouchableOpacity
-            activeOpacity={0.5}
-            style={styles.buttonStyle}
-            onPress={() => Communications.text(Phonenumber, SmsText)}
-          >
-            <Text style={styles.buttonTextStyle}>Send a Text</Text>
+          <Text style={styles.buttonTextStyle}>Contact Donor</Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.callFunctionContanner}>
+        <Text style={styles.name}>Shan</Text>
+         <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.buttonStyle}
+          onPress={() => Communications.text(Phonenumber1, SmsText)}
+          >
+          <Text style={styles.buttonTextStyle}>Contact Donor</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.callFunctionContanner}>
+        <Text style={styles.name}>Akash</Text>
+         <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.buttonStyle}
+          onPress={() => Communications.text(Phonenumber2, SmsText)}
+          >
+          <Text style={styles.buttonTextStyle}>Contact Donor</Text>
+          </TouchableOpacity>
+        </View>
+        
+      </View>
       </View>
     </SafeAreaView>
+    
   );
 };
 
@@ -161,6 +179,8 @@ const styles = StyleSheet.create({
   buttonStyle: {
     padding: 5,
     backgroundColor: "#FF1493",
+    marginLeft:"20%",
+    
   },
   buttonTextStyle: {
     color: "#fff",
