@@ -50,7 +50,7 @@ const BlooddetailScreen = ({navigation}) => {
     { Key: "Female-12.5 g/dl", value: "12.5 g/dl" },
   ];
 
-  // Save details in db
+  
   const DonorReg = () => {
     if (
      ageValue == '' || weightValue == '' || bloodValue ==''||hemoglobinValue==''

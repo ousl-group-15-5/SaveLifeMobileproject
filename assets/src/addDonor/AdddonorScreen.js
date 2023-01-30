@@ -23,14 +23,16 @@ const AdddonorScreen = ({ navigation }) => {
   const [number2, setNumber2] = useState("");
   const [donation, setDonation] = useState("");
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isDatePickerVisible1, setDatePickerVisibility1] = useState(false);
   const [selectdate, setselectdate] = useState("Select Date");
+  const [donorDate, setdonorDate] = useState("Last Blood Date");
 
   const navigations = useNavigation();
 
   const renext = () => {
-    if (name == "") {
+    if (name == "" ) {
       alert("Please add the donor name");
-    } else if (selectdate == "select date" || selectdate == "") {
+    } else if (selectdate == "Select Date" || selectdate == "") {
       alert("Please add the donor Birthday");
     } else if (address == "") {
       alert("Please add the donor Address");
@@ -45,7 +47,7 @@ const AdddonorScreen = ({ navigation }) => {
     } else if (number1 == number2) {
       alert("Contact Number cant be same");
     }
-    else if (donation == "") {
+    else if (donorDate == "Last Blood Date" || donorDate == "") {
       alert("Please add the Last Blood donation");
     }  else {
       navigations.navigate("Donor Blood Detail", {
@@ -55,7 +57,7 @@ const AdddonorScreen = ({ navigation }) => {
         id: id,
         number1: number1,
         number2: number2,
-        donation: donation,
+        donation: donorDate,
       });
     }
   };
@@ -85,6 +87,34 @@ const AdddonorScreen = ({ navigation }) => {
     hideDatePicker();
   };
 
+  const showDatePicker1 = () => {
+    setDatePickerVisibility1(true);
+  };
+
+  const hideDatePicker1 = () => {
+    setDatePickerVisibility1(false);
+  };
+
+  const handleConfirm1 = (date) => {
+    const cc = new Date(date);
+    const dateOptions = { day: "numeric", month: "short", year: "numeric" };
+    //console.log(); // "1/28/2023"
+    setdonorDate(cc.toLocaleDateString("en-us", dateOptions));
+
+    hideDatePicker1();
+  };
+
+//age must be up to 18 years 
+const eighteenYearsAgo = new Date();
+eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
+
+
+//for lastblood donation date chnage to eight week past
+
+const eightWeeksAgo = new Date();
+eightWeeksAgo.setDate(eightWeeksAgo.getDate() - 56);
+
+
   return (
     <ScrollView>
       <View style={styles.container3}>
@@ -111,6 +141,7 @@ const AdddonorScreen = ({ navigation }) => {
             mode="date"
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
+            maximumDate={eighteenYearsAgo}
           />
 
           <Text style={styles.label2}>Donor Address</Text>
@@ -144,11 +175,26 @@ const AdddonorScreen = ({ navigation }) => {
           />
 
           <Text style={styles.label2}>Last Blood Donation</Text>
-          <TextInput
+          <TouchableOpacity
             style={styles.input}
-            selectionColor={"#5188E3"}
-            onChangeText={(Donation) => setDonation(Donation)}
+            onPress={() => {
+              showDatePicker1();
+            }}
+          >
+            <Text style={styles.Dinput}>{donorDate}</Text>
+          </TouchableOpacity>
+
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible1}
+            mode="date"
+            onConfirm={handleConfirm1}
+            onCancel={hideDatePicker1}
+            maximumDate={eightWeeksAgo}
           />
+
+
+
+
         </View>
 
         <Button title="NEXT" onPress={() => renext()} />
