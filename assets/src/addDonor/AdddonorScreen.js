@@ -104,7 +104,7 @@ const AdddonorScreen = ({ navigation }) => {
     hideDatePicker1();
   };
 
-//age must be up to 18 year
+//age must be up to 18 yea
 const eighteenYearsAgo = new Date();
 eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
 

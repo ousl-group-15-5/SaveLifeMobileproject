@@ -60,7 +60,7 @@ const BlooddetailScreen = ({navigation}) => {
       
       var InsertApiURL = "http://10.0.2.2:80/api/DonorRegister.php";
 
-      //this contain header related component
+      //this contain header related component]
       var headers = {
         'Accept': 'application/json',
         'Content-Type':'application/json'
