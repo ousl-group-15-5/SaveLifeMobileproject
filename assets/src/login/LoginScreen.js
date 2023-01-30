@@ -83,7 +83,7 @@ function detailsEmpty(){
             //detailsEmpty();
           }else{
             navigation.navigate("Category");
-            //detailsEmpty();
+            //detailsEmpty()
           }
         }
         )

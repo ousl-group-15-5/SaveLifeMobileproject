@@ -228,7 +228,7 @@ const subcatogary = {
     return /^07[0-9]{8}$/.test(number);
   }
   //Db start-----------------
-  //for insert value to userRegistation
+  //for insert value to userRegistatio
   const bloodBankUserReg = () => {
      if(clusteropn ==''){
       alert('Please choose the cluster center')
