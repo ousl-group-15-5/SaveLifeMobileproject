@@ -97,13 +97,13 @@ const FinddonorScreen = ({ navigation }) => {
           } else {
             //databace responce include this array
             responcearr = responceJSON;
-            //call the renext function for goto next page with result dat
+            //call the renext function for goto next page with result data
             renext();
           }
         })
         //hndle exception
         .catch((error) => {
-          alert("Error 001" + error);
+          alert("Something wrong try again" );
         });
     }
   };

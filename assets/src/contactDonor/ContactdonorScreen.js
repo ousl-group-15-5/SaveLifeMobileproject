@@ -1,6 +1,7 @@
 import React from "react";
 import { useRoute } from "@react-navigation/native";
 import { useState } from "react";
+import{setState}from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -10,46 +11,59 @@ import {
   VirtualizedList,
   Button,
 } from "react-native";
-
 import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
 import Communications from "react-native-communications";
+import { FlatList } from "react-native-gesture-handler";
 
 const ContactdonorScreen = () => {
   const route = useRoute();
 
   const Phonenumber = "0701169644";
-  const Phonenumber1 = "0712264659";
-  const Phonenumber2 = "0769939077";
-  
   const SmsText = "SMS for Blood donation request";
   
-  
-  fun();
-
-  function fun() {
-    var dataobj = {};
+  var dataobj = {};
     dataobj.responcCtn = route.params.responce;
     //const obt = JSON.parse(route.params.responce);
-    var data = route.params.responce.map(function (item) {
+    var responce = route.params.responce.map(function (item) {
       return {
         key: item.D_contactNum1,
         label: item.D_name,
       };
     });
+    //setNumberofDonor(data);
+    const numberOfDonor = Object.keys(responce).length;
+    //setNumberofDonor(numberOfDonor);
+    console.log(responce);
     
-    //const numberOfDonor = Object.keys(data).length;
-    //setNumberofDonor(number);
-    // console.log(number)
-  }
+  //// ------------------------------------------
+  // For showing Name and phone number 
+    const Item = ({title}) => (
+      <View style = {styles.ftcontanner}>
+        <Text style = {styles.ftTextContanner}>{title}</Text>
+      </View>
+    );
+    const Numbers = ({title}) => (
+      <View style = {styles.ftcontanner}>
+        <TouchableOpacity
+            activeOpacity={0.5}
+            style={styles.buttonStyle}
+            onPress={() => Communications.text(title)}
+          >
+            <Text style={styles.buttonTextStyle}>{title}</Text>
+          </TouchableOpacity>
+      </View>
+    );
+// --------------------------------------------End here 
+
+
   return (
-    
     <SafeAreaView style={styles.container}>
       <View style={styles.firstContanner}>
         <View style={styles.firstDonorFindView}>
           <Text style={styles.textforAlert}>Alert</Text>
 
-          <Text style={styles.numberOfDonor}>{} 3 Donor Found </Text>
+          <Text style={styles.numberOfDonor}>{numberOfDonor} Donor Found </Text>
         </View>
 
         {/* For view google map  */}
@@ -80,51 +94,42 @@ const ContactdonorScreen = () => {
               coordinate={{ latitude: 6.9361, longitude: 79.845 }}
               title={"Fort"}
             />
-image.png
+
+            <Marker
+              coordinate={{ latitude: 6.8976, longitude: 79.8815 }}
+              title={"Narahenpita"}
+            />
           </MapView>
         </View>
       </View>
       <View style={styles.callAndDonorContanner}>
-        <View>
-          <Text>{}</Text>
-        </View>
-        {/* For make a phone call to donor contact number ss  */}
-        <View style={styles.Donornames}>
-        <View style={styles.callFunctionContanner}>
-        <Text style={styles.name}>Niroshan</Text>
-         <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.buttonStyle}
-          onPress={() => Communications.text(Phonenumber, SmsText)}
-          >
-          <Text style={styles.buttonTextStyle}>Contact Donor</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.callFunctionContanner}>
-        <Text style={styles.name}>Shan</Text>
-         <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.buttonStyle}
-          onPress={() => Communications.text(Phonenumber1, SmsText)}
-          >
-          <Text style={styles.buttonTextStyle}>Contact Donor</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.callFunctionContanner}>
-        <Text style={styles.name}>Akash</Text>
-         <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.buttonStyle}
-          onPress={() => Communications.text(Phonenumber2, SmsText)}
-          >
-          <Text style={styles.buttonTextStyle}>Contact Donor</Text>
-          </TouchableOpacity>
-        </View>
-        
+      <View style={styles.callFunctionContanner}>
+         {/* This one for passing name  */}
+        <FlatList
+        data = {responce} 
+        renderItem = {({item}) => <Item title = {item.label}/>}
+        inverted
+        style = {styles.ftcontanners}
+        />
+
+         {/* This one for parsing PhoneNumber 
+
+         Read me ---  
+         In line 39 have a const function 
+         const Item 
+         Const Number 
+         You can make a style in that part. 
+         
+         */}
+        <FlatList
+        data = {responce} 
+        renderItem = {({item}) => <Numbers title = {item.key}/>}
+        inverted
+        style = {styles.ftcontanners2}
+        />
       </View>
       </View>
     </SafeAreaView>
-    
   );
 };
 
@@ -154,7 +159,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: "2%",
   },
-
+  nameContanner:{
+    marginRight:10,
+    paddingRight:10
+  },
   map: {
     width: "100%",
     height: "100%",
@@ -167,25 +175,41 @@ const styles = StyleSheet.create({
 
   callAndDonorContanner: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
   },
   callFunctionContanner: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  
+    justifyContent: "flex-start",
     paddingLeft: 5,
-    height: 30,
-    margin: "5%",
+    
+    
   },
   buttonStyle: {
     padding: 5,
     backgroundColor: "#FF1493",
-    marginLeft:"20%",
-    
+    padding:'2%',
+    borderColor:'black'
   },
   buttonTextStyle: {
     color: "#fff",
     textAlign: "center",
     marginRight: "11%",
+    
+
   },
+  //this style  --  for flatList 
+  ftcontanner:{
+    
+
+  },
+  ftcontanners:{
+    backgroundColor:'red',
+    
+   
+  },
+  ftcontanners2:{
+    marginLeft:'50%',
+    
+  }
 });
 export default ContactdonorScreen;
