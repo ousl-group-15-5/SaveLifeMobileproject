@@ -54,13 +54,13 @@ const subcatogary = {
   'Anuradhapura':[
     { key: "Anuradhapura", value: "Anuradhapura" },
     { key: "Medirigiriya", value: "Medirigiriya" },
-    { key: "Padaviya", value: "	Padaviya" },
+    { key: "Padaviya", value: "Padaviya" },
     { key: "Polonnaruwa", value: "Polonnaruwa" },
     { key: "Thambuttegama", value: "Thambuttegama" },
   ],
   'Badulla':[
     { key: "Badulla", value: "Badulla" },
-    { key: "Bibila", value: "	Bibila" },
+    { key: "Bibila", value: "Bibila" },
     { key: "Diyatalawa", value: "Diyatalawa" },
     { key: "Mahiyanganaya", value: "Mahiyanganaya" },
     { key: "Monaragala", value: "Monaragala" },
@@ -224,23 +224,35 @@ const subcatogary = {
     }
   };
 
+  const isValidSLMobileNumber = (number) => {
+    return /^07[0-9]{8}$/.test(number);
+  }
   //Db start-----------------
   //for insert value to userRegistation
   const bloodBankUserReg = () => {
-    if (
-      username.length == 0 ||
-      password.length == 0 ||
-      confirmpassword.length == 0
-      
-    ) {
-      alert("Required field is missing");
-      
-      
-    } else if(password.length < 6 || confirmpassword.length < 6){
+     if(clusteropn ==''){
+      alert('Please choose the cluster center')
+    }
+    
+    else if(subbranch == ''){
+      alert("Choose correct cluster center and blood bank");
+
+    }else if(username.length == 0){
+      alert("Please enter a user name with minimum of four characters");
+    }
+    else if (
+       username.length < 4  ) {
+      alert("Please enter a user name with minimum of four characters");
+    }else if(password.length == 0){
+      alert("Password areas cannot be empty")
+    }
+     else if(password.length < 6 ){
       alert("Password must be at least 6 characters long");
     }
     else if(password !== confirmpassword){
-      alert("Password does not match");
+      alert("Password does not match. Confirm your password correctly");
+    }else if(!isValidSLMobileNumber(mobileNumber)){
+      alert("Enter valid mobile number (07* *** ****)")
     }
     else {
       // Variable for declare local Api path
@@ -314,7 +326,9 @@ const subcatogary = {
           onChangeText={(Username) => setUsername(Username)}
           onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
         />
-        {data.isValidUser ? null : <Text>Please add username</Text>}
+        {data.isValidUser ? null : 
+        <Text>
+          </Text>}
 
         <Text style={styles.label2}>Password</Text>
         <TextInput
@@ -326,7 +340,7 @@ const subcatogary = {
           onEndEditing={(e) => handleValidPassword(e.nativeEvent.text)}
         />
         {data.isValidPassword ? null : (
-          <Text>Please User Name and Password</Text>
+          <Text></Text>
         )}
         <Text style={styles.label2}>Confirm Password</Text>
         <TextInput
@@ -340,7 +354,7 @@ const subcatogary = {
           onEndEditing={(e) => handleValidcmfPassword(e.nativeEvent.text)}
         />
         {data.isValidcmfPassword ? null : (
-          <Text>Please confrom your password</Text>
+          <Text></Text>
         )}
          <Text style={styles.label2}>Mobile Number</Text>
         <TextInput
