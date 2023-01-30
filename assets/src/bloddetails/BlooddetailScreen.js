@@ -87,7 +87,7 @@ const BlooddetailScreen = ({navigation}) => {
         body: JSON.stringify(dataobj),
         
       })
-        //whether output api json or not
+        //whether output api json or nott
         .then((responce) => responce.json())
         .then((responce) => {
           alert(responce[0].Message);
