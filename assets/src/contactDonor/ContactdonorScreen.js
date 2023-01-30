@@ -88,7 +88,7 @@ image.png
         <View>
           <Text>{}</Text>
         </View>
-        {/* For make a phone call to donor contact number  */}
+        {/* For make a phone call to donor contact number ss  */}
         <View style={styles.Donornames}>
         <View style={styles.callFunctionContanner}>
         <Text style={styles.name}>Niroshan</Text>

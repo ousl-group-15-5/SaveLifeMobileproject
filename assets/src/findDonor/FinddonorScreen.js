@@ -97,7 +97,7 @@ const FinddonorScreen = ({ navigation }) => {
           } else {
             //databace responce include this array
             responcearr = responceJSON;
-            //call the renext function for goto next page with result data
+            //call the renext function for goto next page with result dat
             renext();
           }
         })
