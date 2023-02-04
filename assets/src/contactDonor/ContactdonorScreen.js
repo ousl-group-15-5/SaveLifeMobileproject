@@ -80,25 +80,7 @@ const ContactdonorScreen = () => {
               longitudeDelta: 0.09,
             }}
           >
-            <Marker
-              coordinate={{ latitude: 6.9044, longitude: 79.854 }}
-              title={"Bamplapitiya"}
-            />
-
-            <Marker
-              coordinate={{ latitude: 6.927, longitude: 79.864 }}
-              title={"Maradana"}
-            />
-
-            <Marker
-              coordinate={{ latitude: 6.9361, longitude: 79.845 }}
-              title={"Fort"}
-            />
-
-            <Marker
-              coordinate={{ latitude: 6.8976, longitude: 79.8815 }}
-              title={"Narahenpita"}
-            />
+            
           </MapView>
         </View>
       </View>
@@ -198,14 +180,10 @@ const styles = StyleSheet.create({
 
   },
   //this style  --  for flatList 
-  ftcontanner:{
-    
-
-  },
+  
   ftcontanners:{
-    backgroundColor:'red',
-    
-   
+    fontWeight:"bold",
+    marginBottom:"-6%"
   },
   ftcontanners2:{
     marginLeft:'50%',
