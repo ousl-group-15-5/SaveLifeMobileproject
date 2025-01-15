@@ -132,7 +132,13 @@ const FinddonorScreen = ({ navigation }) => {
         </View>
       </View>
 
-      <Button title="FIND DONOR" onPress={findDonor} />
+   <TouchableOpacity
+                      style={styles.RegisterBtn}
+                      onPress={findDonor}
+                    >
+                      <Text style={styles.RegisterText}>Find Donor</Text>
+                    </TouchableOpacity>
+      
 
       <MapView
         style={styles.map}
@@ -171,6 +177,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     paddingStart: 10,
     marginBottom: 15,
+  },
+  RegisterBtn: {
+    width: "50%",
+    borderRadius: 25,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 1,
+    marginBottom:2,
+    backgroundColor: "#FF1493",
+    marginHorizontal: "22%",
+  },
+  RegisterText:{
+    color:'white',
+    text:'bold',
+    fontSize:18
   },
   content: {
     width: "90%",
@@ -226,16 +248,7 @@ const styles = StyleSheet.create({
     borderColor: "#B7B7B7",
   },
 
-  RegisterBtn: {
-    width: "90%",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-    backgroundColor: "#FF1493",
-    marginHorizontal: "2%",
-  },
+  
 
   fixToText: {
     flexDirection: "row",

@@ -63,7 +63,7 @@ const AdddonorScreen = ({ navigation }) => {
   };
 
   const isValidNIC = (nic) => {
-    return /^[0-9]{9}[vVxX]$/.test(nic) || /^[0-9]{12}$/.test(nic);
+    return /^[0-9]{9}[vV]$/.test(nic) || /^[0-9]{12}$/.test(nic);
   };
   const isValidSLMobileNumber = (number) => {
     return /^07[0-9]{8}$/.test(number);
@@ -196,8 +196,13 @@ eightWeeksAgo.setDate(eightWeeksAgo.getDate() - 56);
 
 
         </View>
-
-        <Button title="NEXT" onPress={() => renext()} />
+            <TouchableOpacity
+                      style={styles.RegisterBtn}
+                      onPress={() => renext()}
+                    >
+                      <Text style={styles.RegisterText}>Done</Text>
+                    </TouchableOpacity>
+      
       </View>
     </ScrollView>
   );
@@ -209,6 +214,22 @@ const styles = StyleSheet.create({
     marginTop: "0%",
     backgroundColor: "#fff",
   },
+  RegisterBtn: {
+    width: "50%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    backgroundColor: "#FF1493",
+    marginHorizontal: "22%",
+  },
+  RegisterText:{
+    color:'white',
+    text:'bold',
+    fontSize:18
+  },
+
   input: {
     borderStyle: "solid",
     borderColor: "#B7B7B7",
@@ -236,6 +257,7 @@ const styles = StyleSheet.create({
   },
 
   label2: {
+    
     marginHorizontal: 10,
     marginBottom: 15,
     fontWeight: "bold",

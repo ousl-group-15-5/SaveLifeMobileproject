@@ -387,7 +387,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
+  RegisterText:{
+    color:'white',
+    text:'bold',
+    fontSize:18
+  },
   container1: {
     flex: 1,
     backgroundColor: "#fff",

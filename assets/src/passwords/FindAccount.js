@@ -160,5 +160,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF1493",
     marginHorizontal: "2%",
   },
+  RegisterText:{
+    color:'white',
+    text:'bold',
+    fontSize:18
+  },
 });
 export default FindAccount;
